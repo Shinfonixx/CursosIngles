@@ -151,14 +151,14 @@ app.use((req, res, next) => {
 
 //middleware para cookies
 app.use(session({
-  secret: require('crypto').randomBytes(64).toString('hex'),//  //Firma de la sesion de la cookie
-  resave: false, //evita que la sesion de guarde soi hay alguna modificacion en la propia sesion
-  saveUninitialized: false, // no crea sesion hasta que haya algo que guardar
-  rolling:true, //renueva la cookie en cada solicitud
-  cookie:{
-    maxAge: 1000*60*30 // 30 min de sesion abierta
+  secret: process.env.SESSION_SECRET, // Cambiar esto
+  resave: false,
+  saveUninitialized: false,
+  rolling: true,
+  cookie: {
+    maxAge: 1000*60*30
   }
-})) 
+}))
 
 // inicializamos passport, session y flash
 app.use(passport.initialize());
