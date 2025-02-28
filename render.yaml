@@ -9,6 +9,7 @@ services:
         value: production
       - key: PORT
         value: 3000
+      # All sensitive variables should be configured in Render dashboard
       - key: MONGO_URI
         sync: false
       - key: SESSION_SECRET
