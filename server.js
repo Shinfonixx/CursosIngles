@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const passport = require('passport'); // para autenticar
 const LocalStrategy = require('passport-local').Strategy; //para que sea estrategia local 
 const session = require('express-session') // para coockies y manejo de sesiones
-const bcrypt = require('bcrypt'); // para encriptar contraseñas
+const bcrypt = require('bcryptjs');  // Changed from 'bcrypt' to 'bcryptjs'
 const flash = require('connect-flash');// para enviar mensajes flash al navegador
 //pasport
 passport.use(new LocalStrategy({
