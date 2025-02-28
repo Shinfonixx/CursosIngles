@@ -2,7 +2,7 @@ services:
   - type: web
     name: academia-ingles
     env: node
-    buildCommand: rm -rf node_modules && npm install && npm rebuild bcrypt --build-from-source
+    buildCommand: npm ci && npm rebuild bcrypt --build-from-source
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
