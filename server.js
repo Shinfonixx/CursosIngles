@@ -151,12 +151,16 @@ app.use((req, res, next) => {
 
 //middleware para cookies
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'your_fallback_secret',  // Changed this line
+  secret: process.env.SESSION_SECRET || 'your_fallback_secret',
   resave: false,
   saveUninitialized: false,
   rolling: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    ttl: 60 * 30 // 30 minutes
+  }),
   cookie: {
-    maxAge: 1000*60*30
+    maxAge: 1000 * 60 * 30
   }
 }))
 
