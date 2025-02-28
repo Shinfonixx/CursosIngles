@@ -2,7 +2,10 @@ services:
   - type: web
     name: academia-ingles
     env: node
-    buildCommand: npm ci && npm rebuild bcrypt --build-from-source
+    buildCommand: |
+      npm uninstall bcrypt
+      npm install bcrypt@5.1.1
+      npm install
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
