@@ -2,14 +2,13 @@ services:
   - type: web
     name: academia-ingles
     env: node
-    buildCommand: npm install
+    buildCommand: npm rebuild bcrypt --build-from-source && npm install
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 3000
-      # All sensitive variables should be configured in Render dashboard
       - key: MONGO_URI
         sync: false
       - key: SESSION_SECRET
