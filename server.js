@@ -188,8 +188,7 @@ function ensureAuthenticated(req, res, next) {
 
 
 // Configuración de conexión a la base de datos MongoDB
-const dbURI = 'mongodb+srv://Shinfonixx:Danihr05@clasenode.3zpa9.mongodb.net/TareaFinal';
-
+const dbURI = process.env.MONGO_URI;
 // Configuración para guardar logs de acceso
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
