@@ -151,7 +151,7 @@ app.use((req, res, next) => {
 
 //middleware para cookies
 app.use(session({
-  secret: process.env.SESSION_SECRET, // Cambiar esto
+  secret: process.env.SESSION_SECRET || 'your_fallback_secret',  // Changed this line
   resave: false,
   saveUninitialized: false,
   rolling: true,
