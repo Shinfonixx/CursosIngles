@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navegar.ejs') %>
+    <h1><%= title %></h1>
+    
+    <% if (users && users.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Foto de Perfil</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td>
+                            <% if (user.profilePic) { %>
+                                <img src="<%= user.profilePic %>" alt="Foto de <%= user.name %>"
+                                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                            <% } else { %>
+                                <span>Sin foto</span>
+                            <% } %>
+                        </td>
+                        <td><%= user.name %></td>
+                        <td><%= user.surname %></td>
+                        <td>
+                            <%= user.dob ? user.dob.toISOString().substring(0, 10) : 'No registrada' %>
+                        </td>
+                        <td>
+                            <a href="/edit-user/<%= user._id %>" class="btn-edit">
+                                <button class="editar">Editar</button>
+                            </a>
+                            <button class="eliminar" onclick="deleteUser('<%= user._id %>')">Borrar</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No hay usuarios registrados.</p>
+    <% } %>
+
+    <script>
+    async function deleteUser(userId) {
+        if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+            try {
+                const response = await fetch(`/delete-user/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                if (data.success) {
+                    const row = document.querySelector(`tr[data-user-id="${userId}"]`);
+                    if (row) {
+                        row.remove();
+                    }
+                    window.location.reload();
+                } else {
+                    alert('Error al eliminar el usuario');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al eliminar el usuario: ' + error.message);
+            }
+        }
+    }
+    </script>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

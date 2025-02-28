@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/navegar.ejs') %>
+    <div class="container">
+        <h1>Nuestros Cursos de Inglés</h1>
+        
+        <div class="courses-grid">
+            <div class="course-card">
+                <img src="https://d8285fmxt3duy.cloudfront.net/teleusers/vid_presentacion_cursos/courseImage_INGBA_1488878603_.png" alt="Curso básico" class="course-image">
+                <div class="course-content">
+                    <h3>Inglés Básico</h3>
+                    <p class="summary">Perfecto para principiantes que quieren empezar desde cero.</p>
+                    <div class="course-details">
+                        <span class="level">Nivel: Básico</span>
+                        <span class="duration">Duración: 3 meses</span>
+                    </div>
+                    <p class="price">199€</p>
+                    <button class="add-to-cart" onclick="addToCart('basic', 'Inglés Básico', 199)">
+                        Añadir al Carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <img src="https://mediraformacion.es/wp-content/uploads/2020/04/INGLES-INTERMEDIO.png" alt="Curso intermedio" class="course-image">
+                <div class="course-content">
+                    <h3>Inglés Intermedio</h3>
+                    <p class="summary">Mejora tu fluidez y amplía tu vocabulario.</p>
+                    <div class="course-details">
+                        <span class="level">Nivel: Intermedio</span>
+                        <span class="duration">Duración: 4 meses</span>
+                    </div>
+                    <p class="price">299€</p>
+                    <button class="add-to-cart" onclick="addToCart('intermediate', 'Inglés Intermedio', 299)">
+                        Añadir al Carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <img src="https://d8285fmxt3duy.cloudfront.net/teleusers/vid_presentacion_cursos/courseImage_INGAV_1488371518_.png" alt="Curso avanzado" class="course-image">
+                <div class="course-content">
+                    <h3>Inglés Avanzado</h3>
+                    <p class="summary">Domina el inglés a nivel profesional.</p>
+                    <div class="course-details">
+                        <span class="level">Nivel: Avanzado</span>
+                        <span class="duration">Duración: 6 meses</span>
+                    </div>
+                    <p class="price">399€</p>
+                    <button class="add-to-cart" onclick="addToCart('advanced', 'Inglés Avanzado', 399)">
+                        Añadir al Carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <img src="https://elblogdeidiomas.es/wp-content/uploads/2018/03/ingles-de-negocios.png" alt="Inglés de negocios" class="course-image">
+                <div class="course-content">
+                    <h3>Inglés de Negocios</h3>
+                    <p class="summary">Especializado en vocabulario y situaciones empresariales.</p>
+                    <div class="course-details">
+                        <span class="level">Nivel: Profesional</span>
+                        <span class="duration">Duración: 3 meses</span>
+                    </div>
+                    <p class="price">349€</p>
+                    <button class="add-to-cart" onclick="addToCart('business', 'Inglés de Negocios', 349)">
+                        Añadir al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    async function addToCart(courseId, courseName, price) {
+        try {
+            const response = await fetch('/add-to-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ courseId, courseName, price })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                showNotification('Curso añadido al carrito correctamente');
+                const cartCount = document.querySelector('.cart-count');
+                if (cartCount) {
+                    cartCount.textContent = data.cartCount;
+                }
+            } else {
+                showNotification(data.message || 'El curso ya está en el carrito');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al añadir al carrito');
+        }
+    }
+    </script>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

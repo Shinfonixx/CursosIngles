@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/css/index.css">
+<body>
+    <%- include('./partials/navegar.ejs') %>
+    
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Academia de Inglés Online</h1>
+            <p class="hero-text">Aprende inglés de manera efectiva con profesores nativos certificados</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Estudiantes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Profesores</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Satisfacción</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="features-container">
+        <div class="feature-card">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Cursos Personalizados</h3>
+            <p>Programas adaptados a tu nivel y objetivos específicos</p>
+            <a href="/courses" class="feature-link">Ver Cursos</a>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-users"></i>
+            <h3>Clases en Grupo</h3>
+            <p>Aprende e interactúa con otros estudiantes en tiempo real</p>
+            <a href="/courses" class="feature-link">Más Información</a>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-laptop"></i>
+            <h3>Plataforma Virtual</h3>
+            <p>Accede a tus clases desde cualquier dispositivo</p>
+            <a href="/courses" class="feature-link">Comenzar</a>
+        </div>
+    </div>
+
+    <div class="methodology-section">
+        <h2>Nuestra Metodología</h2>
+        <div class="methodology-grid">
+            <div class="methodology-item">
+                <div class="methodology-number">1</div>
+                <h3>Evaluación Inicial</h3>
+                <p>Test de nivel y entrevista personalizada</p>
+            </div>
+            <div class="methodology-item">
+                <div class="methodology-number">2</div>
+                <h3>Plan Personalizado</h3>
+                <p>Diseño de programa según tus objetivos</p>
+            </div>
+            <div class="methodology-item">
+                <div class="methodology-number">3</div>
+                <h3>Clases Dinámicas</h3>
+                <p>Aprendizaje interactivo y práctico</p>
+            </div>
+            <div class="methodology-item">
+                <div class="methodology-number">4</div>
+                <h3>Seguimiento Continuo</h3>
+                <p>Evaluación y ajuste del programa</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="levels-section">
+        <h2>Niveles Disponibles</h2>
+        <div class="levels-grid">
+            <div class="level-card">
+                <h3>Principiante (A1-A2)</h3>
+                <ul>
+                    <li>Gramática básica</li>
+                    <li>Vocabulario esencial</li>
+                    <li>Conversación simple</li>
+                </ul>
+            </div>
+            <div class="level-card">
+                <h3>Intermedio (B1-B2)</h3>
+                <ul>
+                    <li>Gramática avanzada</li>
+                    <li>Fluidez conversacional</li>
+                    <li>Comprensión auditiva</li>
+                </ul>
+            </div>
+            <div class="level-card">
+                <h3>Avanzado (C1-C2)</h3>
+                <ul>
+                    <li>Perfeccionamiento</li>
+                    <li>Inglés profesional</li>
+                    <li>Preparación exámenes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>¿Listo para empezar?</h2>
+        <p>Únete a nuestra comunidad de estudiantes y alcanza la fluidez en inglés</p>
+        <div class="cta-buttons">
+            <% if (!user) { %>
+                <a href="/sign-up" class="btn-primary">Prueba Gratuita</a>
+                <a href="/courses" class="btn-secondary">Explorar Cursos</a>
+            <% } else { %>
+                <a href="/courses" class="btn-primary">Ver Mis Cursos</a>
+                <a href="/reviews" class="btn-secondary">Opiniones</a>
+            <% } %>
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/navegar.ejs') %>
+    <div class="container">
+        <h1>Reseñas de Estudiantes</h1>
+        
+        <% if (user) { %>
+            <a href="/reviews/new" class="btn-write-review">Escribir una Reseña</a>
+        <% } %>
+
+        <div class="reviews-grid">
+            <% if (reviews && reviews.length > 0) { %>
+                <% reviews.forEach(review => { %>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <h3><%= review.title %></h3>
+                        </div>
+                        <% if (review.image) { %>
+                            <img src="<%= review.image %>" alt="Imagen de la reseña">
+                        <% } %>
+                        <p class="summary"><%= review.summary %></p>
+                        <p class="rating">Valoración: <%= "⭐".repeat(review.rating) %></p>
+                        <p class="author">Por: <%= review.author ? review.author.name : 'Desconocido' %></p>
+                        <p class="date">Fecha: <%= new Date(review.createdAt).toLocaleDateString('es-ES') %></p>
+                        
+                        <% if (user && (user.isAdmin || (review.author && user._id.toString() === review.author._id.toString()))) { %>
+                            <div class="review-actions">
+                                <button class="delete-review" onclick="deleteReview('<%= review._id %>')">Eliminar Reseña</button>
+                            </div>
+                        <% } %>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p class="no-reviews">No hay reseñas todavía. ¡Sé el primero en escribir una!</p>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+    async function deleteReview(reviewId) {
+        if (confirm('¿Estás seguro de que quieres eliminar esta reseña?')) {
+            try {
+                const response = await fetch(`/reviews/${reviewId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert('Error al eliminar la reseña');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al eliminar la reseña');
+            }
+        }
+    }
+    </script>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

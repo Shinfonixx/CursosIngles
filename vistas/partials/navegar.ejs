@@ -1,0 +1,56 @@
+<nav>
+    <div class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/courses">Cursos</a>
+        <a href="/reviews">Reseñas</a>
+        <% if (user) { %>
+            <a href="/basededatos">Base de Datos</a>
+        <% } %>
+    </div>
+    
+    <div class="auth-links">
+        <% if (user) { %>
+            <span>¡Hola, <%= user.name %>!</span>
+            <!-- Add this near your cart link -->
+            <a href="/cart" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-badge">0</span>
+            </a>
+            <a href="/logout">Cerrar Sesión</a>
+        <% } else { %>
+            <a href="/login">Iniciar Sesión</a>
+            <a href="/sign-up">Registrarse</a>
+        <% } %>
+    </div>
+</nav>
+
+<style>
+    .cart-link {
+        position: relative;
+        padding-right: 25px;
+    }
+    .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+</style>
+
+<script>
+    async function updateCartCount() {
+        try {
+            const response = await fetch('/cart-count');
+            const data = await response.json();
+            document.getElementById('cart-count').textContent = data.count;
+        } catch (error) {
+            console.error('Error fetching cart count:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+</script>

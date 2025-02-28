@@ -1,0 +1,18 @@
+<html lang="es">
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navegar.ejs') %>
+
+    <div class="content usuario">
+        <h2>Detalles de Usuario</h2>
+        <p><strong>Nombre:</strong> <%= user.nombre %></p>
+        <p><strong>Apellido:</strong> <%= user.apellido %></p>
+        <p><strong>Edad:</strong> <%= user.edad %></p>
+        <p><strong>Nacionalidad:</strong> <%= user.nacionalidad %></p>
+        <p><strong>Sexo:</strong> <%= user.sexo %></p>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

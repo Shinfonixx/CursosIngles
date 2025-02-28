@@ -1,0 +1,18 @@
+<html lang="es">
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navegar.ejs') %>
+    <div class="imagenes content">
+        <h2>Galería de Imágenes</h2>
+        <div class="galeria">
+            <% imagenes.forEach(imagenes => { %>
+                <div class="imagen-item">
+                    <img src="<%= imagenes %>" alt="Imagen">
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html lang="es">
+<%- include ('./partials/head.ejs') %>
+
+    <body>
+        <%- include ('./partials/navegar.ejs') %>
+        <div class="basededatos-header">
+
+            <h1>Base de datos</h1>
+
+        </div>
+<head>
+    <title><%= title %></title>
+</head>
+    <script>
+        setTimeout(function() {
+            window.location.href = '/';  // Redirige a la página de inicio después de 3 segundos
+        }, 3000);  // 3000 milisegundos = 3 segundos
+    </script>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <p><%= message %></p>
+    <p>Serás redirigido a la página de inicio en 3 segundos...</p>
+</body>
+</html>

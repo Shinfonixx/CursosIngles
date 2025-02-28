@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('./partials/head.ejs', { viewCss: 'login' }) %>
+<body>
+    <%- include('./partials/navegar.ejs') %>
+    <h1><%= title %></h1>
+    <main>
+        <% if (message.error) { %>
+            <p class="error" style="color: red;"><%= message.error %></p>
+        <% } %>
+        <form action="/login" method="POST">
+            <label for="email">Correo electronico</label>
+            <input type="email" id="email" name="email" unique>
+            
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Iniciar sesión</button>
+        </form>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <p>¿No tienes una cuenta?</p>
+            <a href="/sign-up" class="register-button" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Registrarse</a>
+        </div>
+    </main>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
